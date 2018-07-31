@@ -1,0 +1,23 @@
+# docker-compose file for local development and testing with container image.
+version: '3.2'
+
+services:
+  # PostgreSQL database for tutor group system
+  tutor_group_system-db:
+    image: postgres
+    env_file:
+      - base.env
+    volumes:
+      - tutor_group_system-postgres-data-local:/var/lib/postgresql/data
+      - tutor_group_system-postgres-backup-local:/backups
+
+  # Debug SMTP provider
+  mailhog:
+    image: mailhog/mailhog
+    ports:
+      - "8025:8025"
+
+volumes:
+  # Persistent volumes for postgres database data
+  tutor_group_system-postgres-data-local:
+  tutor_group_system-postgres-backup-local:
